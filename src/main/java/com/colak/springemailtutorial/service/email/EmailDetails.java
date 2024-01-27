@@ -1,4 +1,4 @@
-package com.colak.springemailtutorial.service;
+package com.colak.springemailtutorial.service.email;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
