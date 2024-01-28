@@ -9,8 +9,7 @@ import com.colak.springemailtutorial.exception.UserAlreadyExistsException;
 import com.colak.springemailtutorial.jpa.User;
 import com.colak.springemailtutorial.mapper.UserMapper;
 import com.colak.springemailtutorial.repository.UserRepository;
-import com.colak.springemailtutorial.service.email.EmailDetails;
-import com.colak.springemailtutorial.service.email.EmailService;
+import com.colak.springemailtutorial.service.rabbit.RabbitProducerService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +24,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final EmailService emailService;
+    private final RabbitProducerService rabbitProducerService;
 
     public void registerUser(UserDto userDto) {
         if (userRepository.existsByEmail(userDto.getEmail())) {
@@ -34,12 +33,7 @@ public class UserService {
         User user = UserMapper.mapToUser(new User(), userDto);
         userRepository.save(user);
 
-        EmailDetails registrationSuccess = EmailDetails.builder()
-                .recipient(userDto.getEmail())
-                .subject("REGISTRATION SUCCESS")
-                .messageBody("Registration Successful with mail id: " + userDto.getEmail())
-                .build();
-        emailService.sendEmail(registrationSuccess);
+        rabbitProducerService.sendEmail(userDto);
     }
 
     @Transactional

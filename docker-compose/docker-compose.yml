@@ -9,9 +9,17 @@ services:
       MYSQL_DATABASE: userdb
       # root can log in from every host
       MYSQL_ROOT_HOST: '%'
-
     ports:
       - '3306:3306'
+
+  # http://localhost:15672
+  #  username: guest password: guest
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
 
 
 

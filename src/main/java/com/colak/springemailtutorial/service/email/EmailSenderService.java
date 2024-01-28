@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class EmailService {
+public class EmailSenderService {
 
     private final JavaMailSender javaMailSender;
 
@@ -22,15 +22,20 @@ public class EmailService {
     @Async
     public void sendEmail(EmailDetails emailDetails) {
         try {
-            SimpleMailMessage mailMsg = new SimpleMailMessage();
-            mailMsg.setFrom(emailSender);
-            mailMsg.setTo(emailDetails.getRecipient());
-            mailMsg.setText(emailDetails.getMessageBody());
-            mailMsg.setSubject(emailDetails.getSubject());
+            SimpleMailMessage mailMsg = createMailMessage(emailDetails);
             javaMailSender.send(mailMsg);
             log.info("Mail sent successfully");
         } catch (MailException exception) {
-            log.debug("Failure occurred while sending email");
+            log.error("Failure occurred while sending email", exception);
         }
+    }
+
+    private SimpleMailMessage createMailMessage(EmailDetails emailDetails) {
+        SimpleMailMessage mailMsg = new SimpleMailMessage();
+        mailMsg.setFrom(emailSender);
+        mailMsg.setTo(emailDetails.getRecipient());
+        mailMsg.setText(emailDetails.getMessageBody());
+        mailMsg.setSubject(emailDetails.getSubject());
+        return mailMsg;
     }
 }
