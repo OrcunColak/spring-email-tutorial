@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class EmailDetails {
 
-    private String recipient;
-    private String messageBody;
+    private String to;
+    private String text;
     private String subject;
+    private boolean simpleMessage;
+    private boolean html;
 }

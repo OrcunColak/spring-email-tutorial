@@ -1,11 +1,14 @@
 package com.colak.springemailtutorial.service.email;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +25,41 @@ public class EmailSenderService {
     @Async
     public void sendEmail(EmailDetails emailDetails) {
         try {
-            SimpleMailMessage mailMsg = createMailMessage(emailDetails);
-            javaMailSender.send(mailMsg);
-            log.info("Mail sent successfully");
-        } catch (MailException exception) {
+            if (emailDetails.isSimpleMessage()) {
+                SimpleMailMessage mailMsg = createMailMessage(emailDetails);
+                javaMailSender.send(mailMsg);
+                log.info("Mail sent successfully");
+            } else {
+                MimeMessage mimeMessage = createMimeMessage(emailDetails);
+                javaMailSender.send(mimeMessage);
+                log.info("Mail sent successfully");
+            }
+        } catch (MailException | MessagingException exception) {
             log.error("Failure occurred while sending email", exception);
         }
     }
 
     private SimpleMailMessage createMailMessage(EmailDetails emailDetails) {
+
+        // SimpleMailMessage is spring class
         SimpleMailMessage mailMsg = new SimpleMailMessage();
         mailMsg.setFrom(emailSender);
-        mailMsg.setTo(emailDetails.getRecipient());
-        mailMsg.setText(emailDetails.getMessageBody());
+        mailMsg.setTo(emailDetails.getTo());
         mailMsg.setSubject(emailDetails.getSubject());
+        mailMsg.setText(emailDetails.getText());
         return mailMsg;
+    }
+
+    private MimeMessage createMimeMessage(EmailDetails emailDetails) throws MessagingException {
+        // MimeMessage is jakarta class
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+
+        // MimeMessageHelper is spring class
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        mimeMessageHelper.setTo(emailDetails.getTo());
+        mimeMessageHelper.setSubject(emailDetails.getSubject());
+        mimeMessageHelper.setFrom(this.emailSender);
+        mimeMessageHelper.setText(emailDetails.getText(), emailDetails.isHtml());
+        return mimeMessage;
     }
 }

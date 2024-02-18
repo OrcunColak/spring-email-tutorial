@@ -14,7 +14,14 @@ class EmailSenderServiceTest {
 
     @Test
     void testSendEmail() {
-        EmailDetails emailDetails = new EmailDetails("orcuncolak@yahoo.com", "messageBody", "subject");
+        String html = """
+                  <html>
+                    <body>
+                      <p>Hello, world</p>
+                    </body>
+                  </html>
+                """;
+        EmailDetails emailDetails = new EmailDetails("orcuncolak@yahoo.com", html, "subject", false, true);
         assertDoesNotThrow(() -> emailSenderService.sendEmail(emailDetails));
     }
 }

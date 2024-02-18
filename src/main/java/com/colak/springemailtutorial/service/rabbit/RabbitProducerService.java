@@ -23,9 +23,9 @@ public class RabbitProducerService {
     @Async
     public void sendEmail(UserDto userDto) {
         EmailDetails registrationSuccess = EmailDetails.builder()
-                .recipient(userDto.getEmail())
+                .to(userDto.getEmail())
                 .subject("REGISTRATION SUCCESS")
-                .messageBody("Registration Successful with mail id: " + userDto.getEmail())
+                .text("Registration Successful with mail id: " + userDto.getEmail())
                 .build();
 
         rabbitTemplate.convertAndSend(emailExchange,
