@@ -14,6 +14,8 @@ public class EmailDetails {
     private String to;
     private String text;
     private String subject;
+    // Simple or Mime message
     private boolean simpleMessage;
+    // If mime message html or not
     private boolean html;
 }

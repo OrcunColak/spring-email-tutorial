@@ -21,10 +21,12 @@ spring:
       mail:
         smtp:
           auth: true
-          ssl:
-            trust: "smtp.gmail.com"
+          connectiontimeout: 5000
           starttls:
             enable: true
+            required: true
+          timeout: 5000
+          writetimeout: 5000
 
   rabbitmq:
     host: localhost
