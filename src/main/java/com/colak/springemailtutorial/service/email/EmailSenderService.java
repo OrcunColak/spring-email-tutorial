@@ -26,11 +26,11 @@ public class EmailSenderService {
     public void sendEmail(EmailDetails emailDetails) {
         try {
             if (emailDetails.isSimpleMessage()) {
-                SimpleMailMessage mailMsg = createMailMessage(emailDetails);
+                SimpleMailMessage mailMsg = createSimpleMailMessage(emailDetails);
                 javaMailSender.send(mailMsg);
                 log.info("Mail sent successfully");
             } else {
-                MimeMessage mimeMessage = createMimeMessage(emailDetails);
+                MimeMessage mimeMessage = createMimeMailMessage(emailDetails);
                 javaMailSender.send(mimeMessage);
                 log.info("Mail sent successfully");
             }
@@ -39,7 +39,7 @@ public class EmailSenderService {
         }
     }
 
-    private SimpleMailMessage createMailMessage(EmailDetails emailDetails) {
+    private SimpleMailMessage createSimpleMailMessage(EmailDetails emailDetails) {
 
         // SimpleMailMessage is spring class
         SimpleMailMessage mailMsg = new SimpleMailMessage();
@@ -50,7 +50,7 @@ public class EmailSenderService {
         return mailMsg;
     }
 
-    private MimeMessage createMimeMessage(EmailDetails emailDetails) throws MessagingException {
+    private MimeMessage createMimeMailMessage(EmailDetails emailDetails) throws MessagingException {
         // MimeMessage is jakarta class
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
