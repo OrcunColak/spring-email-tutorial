@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SimpleEmailService {
 
-    @Value("${spring.mail.username}")
+    @Value("${spring.mail.username:my-user}")
     private String fromUserName;
 
     public SimpleMailMessage createSimpleMailMessage(EmailDetails emailDetails) {
