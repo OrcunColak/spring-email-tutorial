@@ -28,11 +28,11 @@ public class EmailSenderService {
             if (emailDetails.isSimpleMessage()) {
                 SimpleMailMessage mailMsg = createSimpleMailMessage(emailDetails);
                 javaMailSender.send(mailMsg);
-                log.info("Mail sent successfully");
+                log.info("Simple Mail sent successfully");
             } else {
                 MimeMessage mimeMessage = createMimeMailMessage(emailDetails);
                 javaMailSender.send(mimeMessage);
-                log.info("Mail sent successfully");
+                log.info("Mime Mail sent successfully");
             }
         } catch (MailException | MessagingException exception) {
             log.error("Failure occurred while sending email", exception);
@@ -40,7 +40,6 @@ public class EmailSenderService {
     }
 
     private SimpleMailMessage createSimpleMailMessage(EmailDetails emailDetails) {
-
         // SimpleMailMessage is spring class
         SimpleMailMessage mailMsg = new SimpleMailMessage();
         mailMsg.setFrom(emailSender);
