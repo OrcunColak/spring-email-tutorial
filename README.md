@@ -5,8 +5,12 @@ https://medium.com/@samyakmoon855/send-email-notification-using-spring-boot-part
 
 # Gmail Password
 
-To enhance security, generate an App Password for application-specific access. Here are the steps to generate an App
-Password
+To enhance security, generate an App Password for application-specific access.
+
+Simply go to
+https://myaccount.google.com/apppasswords
+
+or here are the steps to generate an App Password
 
 1. Sign In to Your Google Account: Log in to the Google account by which you want to send email.
 2. Go to “Manage your Google account.”
