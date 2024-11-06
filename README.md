@@ -23,3 +23,7 @@ or here are the steps to generate an App Password
 The original idea is from
 https://rkumar0206mnirks.medium.com/send-email-using-javamailsender-b61480311102
 
+# Thymeleaf
+
+The original idea is from  
+https://blog.devops.dev/sending-email-in-spring-boot-6c976a12ecf7
