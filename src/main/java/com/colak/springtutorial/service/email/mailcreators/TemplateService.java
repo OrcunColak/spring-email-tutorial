@@ -15,6 +15,10 @@ public class TemplateService {
         Context context = new Context();
         context.setVariables(variables); // Set variables to be used in template
 
+        // Context context = new Context();
+        // context.setVariable("subject", subject);
+        // context.setVariable("message", message);
+        // String htmlBody = templateEngine.process("emailTemplate", context);
         return templateEngine.process(htmlTemplate, context);
     }
 }
