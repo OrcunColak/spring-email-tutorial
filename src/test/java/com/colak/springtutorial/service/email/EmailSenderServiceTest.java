@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
@@ -13,15 +16,37 @@ class EmailSenderServiceTest {
     private EmailSenderService emailSenderService;
 
     @Test
-    void testSendEmail() {
-        String html = """
-                  <html>
-                    <body>
-                      <p>Hello, world</p>
-                    </body>
-                  </html>
-                """;
-        EmailDetails emailDetails = new EmailDetails("orcuncolak@yahoo.com", html, "subject", false, true);
+    void testSendHtmlEmail() {
+        String body = """
+                <html>
+                  <body>
+                    <p>Hello, world</p>
+                  </body>
+                </html>""";
+
+        EmailDetails emailDetails = EmailDetails.builder()
+                .to("foo@yahoo.com")
+                .subject("subject")
+                .body(body)
+                .simpleMessage(false)
+                .template(false)
+                .build();
+        assertDoesNotThrow(() -> emailSenderService.sendEmail(emailDetails));
+    }
+
+    @Test
+    void testSendTemplateEmail() {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", "Orçun");
+
+        EmailDetails emailDetails = EmailDetails.builder()
+                .to("foo@yahoo.com")
+                .subject("subject")
+                .simpleMessage(false)
+                .template(true)
+                .templateName("emailTemplate")
+                .variables(variables)
+                .build();
         assertDoesNotThrow(() -> emailSenderService.sendEmail(emailDetails));
     }
 }

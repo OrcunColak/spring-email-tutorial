@@ -1,21 +1,24 @@
 package com.colak.springtutorial.service.email;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class EmailDetails {
 
     private String to;
-    private String text;
     private String subject;
+    private String body;
     // Simple or Mime message
     private boolean simpleMessage;
+
     // If mime message html or not
-    private boolean html;
+    private boolean template;
+
+    private String templateName;
+
+    private Map<String, Object> variables;
 }

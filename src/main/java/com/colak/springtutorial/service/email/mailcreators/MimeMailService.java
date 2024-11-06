@@ -32,10 +32,13 @@ public class MimeMailService {
         mimeMessageHelper.setSubject(emailDetails.getSubject());
         mimeMessageHelper.setFrom(fromUserName);
 
-        if (emailDetails.isHtml()) {
-            mimeMessageHelper.setText(emailDetails.getText(), true);
+        if (emailDetails.isTemplate()) {
+            TemplateService templateService = new TemplateService(templateEngine);
+            String body = templateService.buildEmailContent(emailDetails.getTemplateName(), emailDetails.getVariables());
+            mimeMessageHelper.setText(body, true);
+
         } else {
-            mimeMessageHelper.setText(emailDetails.getText(), false);
+            mimeMessageHelper.setText(emailDetails.getBody(), true);
         }
         return mimeMessage;
     }

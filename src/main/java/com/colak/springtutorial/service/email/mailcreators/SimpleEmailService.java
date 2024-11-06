@@ -19,7 +19,7 @@ public class SimpleEmailService {
         mailMsg.setFrom(fromUserName);
         mailMsg.setTo(emailDetails.getTo());
         mailMsg.setSubject(emailDetails.getSubject());
-        mailMsg.setText(emailDetails.getText());
+        mailMsg.setText(emailDetails.getBody());
         return mailMsg;
     }
 }
