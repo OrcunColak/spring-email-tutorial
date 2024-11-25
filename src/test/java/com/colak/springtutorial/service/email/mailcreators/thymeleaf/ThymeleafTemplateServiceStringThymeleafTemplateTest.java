@@ -1,4 +1,4 @@
-package com.colak.springtutorial.service.email.mailcreators;
+package com.colak.springtutorial.service.email.mailcreators.thymeleaf;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,9 +10,9 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TemplateServiceStringTemplateTest {
+public class ThymeleafTemplateServiceStringThymeleafTemplateTest {
 
-    private TemplateService templateService;
+    private ThymeleafTemplateService thymeleafTemplateService;
 
     @BeforeEach
     public void setUp() {
@@ -23,7 +23,7 @@ public class TemplateServiceStringTemplateTest {
         templateResolver.setCacheable(false);
         templateEngine.setTemplateResolver(templateResolver);
 
-        templateService = new TemplateService(templateEngine);
+        thymeleafTemplateService = new ThymeleafTemplateService(templateEngine);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class TemplateServiceStringTemplateTest {
         variables.put("name", "Orçun");
 
         // Act
-        String result = templateService.buildEmailContent(htmlTemplate, variables);
+        String result = thymeleafTemplateService.buildEmailContent(htmlTemplate, variables);
 
         // Assert
         String expectedOutput = """

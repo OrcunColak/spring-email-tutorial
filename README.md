@@ -27,3 +27,8 @@ https://rkumar0206mnirks.medium.com/send-email-using-javamailsender-b61480311102
 
 The original idea is from  
 https://blog.devops.dev/sending-email-in-spring-boot-6c976a12ecf7
+
+# Free Marker
+
+The original idea is from  
+https://medium.com/@ujwala.magdum/forgot-password-flow-in-user-login-with-jwt-token-79a0c1538e30

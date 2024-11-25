@@ -18,6 +18,8 @@ public class EmailDetails {
     // If mime message html or not
     private boolean template;
 
+    private boolean thymeleafTemplate;
+
     private String templateName;
 
     private Map<String, Object> variables;

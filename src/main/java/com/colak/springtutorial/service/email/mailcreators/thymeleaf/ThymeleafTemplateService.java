@@ -1,17 +1,19 @@
-package com.colak.springtutorial.service.email.mailcreators;
+package com.colak.springtutorial.service.email.mailcreators.thymeleaf;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.util.Map;
 
+@Service
 @RequiredArgsConstructor
-public class TemplateService {
+public class ThymeleafTemplateService {
 
     private final TemplateEngine templateEngine;
 
-    public String buildEmailContent(String htmlTemplate, Map<String, Object> variables) {
+    public String buildEmailContent(String htmlTemplateName, Map<String, Object> variables) {
         Context context = new Context();
         context.setVariables(variables); // Set variables to be used in template
 
@@ -19,6 +21,6 @@ public class TemplateService {
         // context.setVariable("subject", subject);
         // context.setVariable("message", message);
         // String htmlBody = templateEngine.process("emailTemplate", context);
-        return templateEngine.process(htmlTemplate, context);
+        return templateEngine.process(htmlTemplateName, context);
     }
 }

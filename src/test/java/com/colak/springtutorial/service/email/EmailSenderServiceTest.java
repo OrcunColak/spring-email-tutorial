@@ -45,6 +45,7 @@ class EmailSenderServiceTest {
                 .simpleMessage(false)
                 .template(true)
                 .templateName("emailTemplate")
+                .thymeleafTemplate(true)
                 .variables(variables)
                 .build();
         assertDoesNotThrow(() -> emailSenderService.sendEmail(emailDetails));
